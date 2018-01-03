@@ -86,14 +86,17 @@ window.onload = function(){
 	// close Mod Win
 	$("body").on("click", ".bCloseInfoWin", function() {
 		$("#dbg").fadeOut();
+    
 		hideInfoWin();
     hideAddWin();
+    $("body").css("overflow-y", "auto");
 	});
 
 	// hide DBG
 	$("body").on("click", "#dbg, .mod_win_wrapper", function() {
 		$("#dbg").fadeOut();
 		hideInfoWin();
+    $("body").css("overflow-y", "auto");
 	});
 	$("body").on("click", ".mod_win", function() {
 		return false;
@@ -101,12 +104,37 @@ window.onload = function(){
   function getImages(sIco) {
     var aIcos = [];
     for(var i=0; i<12; i++) {
-      //var n = (i<10)? "0"+i: i;
       var sSelected = (sIco=="ico_"+i)? " selected" : "";
       var oItem = "<li><div class='ico_list_item "+sSelected+"' data-ico='ico_"+i+"'></div></li>";
       aIcos.push(oItem);
     }
+    for(var i=0; i<12; i++) {
+      var sSelected = (sIco=="ico_02_"+i)? " selected" : "";
+      var oItem = "<li><div class='ico_list_item "+sSelected+"' data-ico='ico_02_"+i+"'></div></li>";
+      aIcos.push(oItem);
+    }
+    for(var i=0; i<12; i++) {
+      var sSelected = (sIco=="ico_04_"+i)? " selected" : "";
+      var oItem = "<li><div class='ico_list_item "+sSelected+"' data-ico='ico_04_"+i+"'></div></li>";
+      aIcos.push(oItem);
+    }
+    for(var i=0; i<12; i++) {
+      var sSelected = (sIco=="ico_03_"+i)? " selected" : "";
+      var oItem = "<li><div class='ico_list_item "+sSelected+"' data-ico='ico_03_"+i+"'></div></li>";
+      aIcos.push(oItem);
+    }
     var sList = "<ul class='ico_list' id='sWinIco' >"+aIcos.join("")+"</ul>";
+    return sList;
+  }
+  function getColors(sColor) {
+    var aColors = [];
+    for(var i=0; i<12; i++) {
+      //var n = (i<10)? "0"+i: i;
+      var sSelected = (sColor=="color_"+i)? " selected" : "";
+      var oItem = "<li><div class='color_list_item "+sSelected+"' data-color='color_"+i+"'></div></li>";
+      aColors.push(oItem);
+    }
+    var sList = "<ul class='color_list' id='sWinColor' >"+aColors.join("")+"</ul>";
     return sList;
   }
   function showAddWin(oData, nIndex){
@@ -116,14 +144,25 @@ window.onload = function(){
       sName = oData? oData.name : "";
       sInitiative = oData? oData.initiative : "";
       sIco = oData? oData.ico : "";
-    var sForm = "<div><input id='sWinName' placeholder='Имя' value='"+sName+"'></div>\
-    <div><input id='sWinInitiative'  placeholder='Инициатива' value='"+sInitiative+"'></div>\
-    <label>Изображение: </label>"+getImages(sIco);
+      sColor = oData? oData.color : "";
+      // <input id='sWinName' placeholder='Текст (Имя или еще что)' value='"+sName+"'>
+    var colorSelect = getColors(sColor);//+"<input type='color'>";
+    var sForm = "<div><textarea id='sWinName' style='width: 95%;' placeholder='Текст (Имя или еще что)' rows='5'>"+sName+"</textarea></div>\
+    <div><input id='sWinInitiative' style='width: 95%;' type='number' placeholder='Инициатива (по умолчаниию \"0\")' value='"+sInitiative+"'></div>\
+    <div>"+colorSelect+"</div>"+getImages(sIco); // <label>Изображение: </label>"
     $(".mod_win_wrapper").remove();
 		var bCross = "<span class='bCloseInfoWin'>×</span>";
     var sButton = oData?"<button class='bApplay'>Применить</button>":"<button class='bAdd'>Добавить</button>";
 		$("body").append("<div class='mod_win_wrapper' "+nIndex+"><div class='mod_win'>"+bCross+sForm+"<br>"+sButton+"</div></div>");
     $("body").css("overflow-y", "hidden");
+    
+    if($(".ico_list .selected").length < 1) {
+      $(".ico_list .ico_list_item").eq(0).addClass("selected");
+    }
+    if($(".color_list .selected").length < 1) {
+      $(".color_list .color_list_item").eq(0).addClass("selected");
+    }
+    
 		$(".mod_win_wrapper").fadeIn();
   }
   function hideAddWin(){
@@ -141,6 +180,7 @@ window.onload = function(){
     oData.name = oItem.find(".name").text();
     oData.initiative = oItem.find(".initiative").text();
     oData.ico = oItem.find(".ico").attr('data-ico');
+    oData.color = oItem.find(".ico_bord").attr('data-color');
     
     return oData;
   }
@@ -152,16 +192,18 @@ window.onload = function(){
     oData.name = oItem.find(".name").text();
     oData.initiative = oItem.find(".initiative").text();
     oData.ico = oItem.find(".ico").attr('data-ico');
+    oData.color = oItem.find(".ico_bord").attr('data-color');
     
     return oData;
   }
   function getItemTemplate(oData){
     if(oData){
       var sIco = oData.ico;
+      var sColor = oData.color;
       var nInitiative = oData.initiative;
       var sName = oData.name;
       var oItem = "<div class='i_item'>\
-          <div class='ico_bord bord_red'>\
+          <div class='ico_bord' data-color='"+sColor+"'>\
             <div class='ico' data-ico='"+sIco+"'></div>\
             <div class='initiative'>"+nInitiative+"</div>\
           </div>\
@@ -178,6 +220,7 @@ window.onload = function(){
       if(nIndex == undefined) 
         nIndex = $("#allOnes .place").length;
       var sIco = oData.ico;
+      var sColor = oData.color;
       var nInitiative = oData.initiative;
       var sName = oData.name;
       var oItem = "<li class='place' style='display: none'>"+
@@ -202,37 +245,49 @@ window.onload = function(){
     if(nIndex == undefined) 
       nIndex = $("#allOnes li").length;
     var sIco = oData.ico;
+    var sColor = oData.color;
     var nInitiative = oData.initiative;
     var sName = oData.name;
     
+    $(".place").eq(nIndex).find(".ico_bord").attr('data-color', sColor);
     $(".place").eq(nIndex).find(".ico").attr('data-ico', sIco);
     $(".place").eq(nIndex).find(".initiative").text(nInitiative);
     $(".place").eq(nIndex).find(".name").text(sName);
   }
   function updateSelected(oData){
     var oDef = $.Deferred();
-    var oItem = "<div class='place'>"+getItemTemplate(oData)+"</div>";
+    var oDef1 = $.Deferred();
+    var oDef2 = $.Deferred();
+    var oItem = "<div class='place' style='display: none'>"+getItemTemplate(oData)+"</div>";
     $("#selectedOne").append(oItem);
     if($("#selectedOne").find(".place").length > 1) {
-      $("#selectedOne").find(".place").eq(1).slideDown(400, function(){
-        $("#selectedOne").find(".place").eq(1).css('height', 'auto');
-      });
       $("#selectedOne").find(".place").eq(0).slideUp(400, function(){
         $("#selectedOne").find(".place").eq(0).remove();
-        oDef.resolve();
+        oDef1.resolve();
+      });
+      $("#selectedOne").find(".place").eq(1).slideDown(400, function(){
+        $("#selectedOne").find(".place").eq(1).css('height', 'auto');
+        oDef2.resolve();
       });
     } else {
-      $("#selectedOne").find(".place").eq(0).show();
+      $("#selectedOne").find(".place").eq(0).slideDown(400, function(){
+        //oDef.resolve();
+        oDef1.resolve();
+        oDef2.resolve();
+      });
     }
     
-    
+    $.when(oDef1, oDef2).done(function(){
+      oDef.resolve();
+    });
     return oDef;
   }
 	function chooseNext(){
     if($("#allOnes .place").length > 0){
       var oItem = $("#allOnes  .place").eq(0);
       var oData = getSelectedItemData(0);
-      var oNewData = getItemData(1);
+      var nIndex = ($("#selectedOne .place").length > 0)? 1: 0;
+      var oNewData = getItemData(nIndex);
       
       var oDef1 = $.Deferred();
       var oDef2 = $.Deferred();
@@ -251,6 +306,7 @@ window.onload = function(){
       $.when(oDef1, oDef2, oDef3).done(
         function() {
           saveData();
+          makeDraggable();
           setSeparators();
         }
       )
@@ -288,8 +344,8 @@ window.onload = function(){
   
   function loadData(){
     var oData = getConfig("oInitiativeTrackerData");
-    if(oData){
-      oData = oData.list.filter(function(item){return (item.name)?true: false;});
+    if(oData && oData.list.length > 0){
+      oData = oData.list.filter(function(item){return (item.ico)?true: false;});
       updateSelected(oData[0]);
       for(var i=0; i<oData.length-1; i++) {
           addItem(oData[1+i]);
@@ -314,6 +370,7 @@ window.onload = function(){
   
   $("#manageButtons").on("click", "#nextOne", function(){
     chooseNext();
+    return false;
   });
   $(".wrap").on("click", ".minus", function(){
     $(this).closest(".place").slideUp(400, function(){
@@ -332,6 +389,10 @@ window.onload = function(){
     $(".ico_list_item").removeClass('selected');
     $(this).addClass('selected');
   });
+  $("body").on("click", ".color_list_item", function(){
+    $(".color_list_item").removeClass('selected');
+    $(this).addClass('selected');
+  });
   $("body").on("dblclick", ".place", function(){
     var nIndex = $(this).index(".place");
     //alert(nIndex);
@@ -341,36 +402,43 @@ window.onload = function(){
   
   $("body").on('click', ".bApplay", function(){
     var sName = $("#sWinName").val();
-    var sInitiative = $("#sWinInitiative").val();
+    var sInitiative = $("#sWinInitiative").val() || 0;
     var sIco = ($("#sWinIco .selected").length>0)?$("#sWinIco .selected").attr("data-ico"): "";
+    var sColor = ($("#sWinColor .selected").length>0)?$("#sWinColor .selected").attr("data-color"): "";
     var nIndex = $(".mod_win_wrapper").attr("data-index");
     
     var oData = {
       name: sName,
       initiative: sInitiative,
-      ico: sIco
+      ico: sIco,
+      color: sColor
     };
     
     setItem(oData, nIndex);   
     $(".bCloseInfoWin").click();
+    makeDraggable();
     saveData();
   });
   
   $("body").on('click', ".bAdd", function(){
     var sName = $("#sWinName").val();
-    var sInitiative = $("#sWinInitiative").val();
+    var sInitiative = $("#sWinInitiative").val() || 0;
     var sIco = ($("#sWinIco .selected").length>0)?$("#sWinIco .selected").attr("data-ico"): "";
+    var sColor = ($("#sWinColor .selected").length>0)?$("#sWinColor .selected").attr("data-color"): "";
     var nIndex = $(".mod_win_wrapper").attr("data-index");
     
     var oData = {
       name: sName,
       initiative: sInitiative,
-      ico: sIco
+      ico: sIco,
+      color: sColor
     };
     
     addItem(oData, nIndex);   
     $(".bCloseInfoWin").click();
     saveData();
+    makeDraggable();
+    setSeparators();
   });
   
   loadData();

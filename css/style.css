@@ -602,17 +602,32 @@ table td:first-child {
   -o-transition: all 0.3s ease;
   -ms-transition: all 0.3s ease;
   transition: all 0.3s ease;
-  display: block;
+  display: flex;
+  flex-direction: column;
   position: absolute;
   width: 95%;
   max-width: 50em;
-  min-height: 15em;
+  min-height: 25em;
+  max-height: 65rem;
+  height: 95%;
   top: 1em;
   z-index: 9999;
   background: #eeeeee;
   color: #222;
   cursor: default;
   font-weight: normal;
+}
+.mod_win_wrapper .mod_win button {
+  background: white;
+  color: #222;
+  padding: 1rem;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 1px 2px #777;
+  transition: box-shadow 0.2s;
+}
+.mod_win_wrapper .mod_win button:hover {
+  box-shadow: 0 3px 4px #777;
 }
 .mod_win_wrapper .bCloseInfoWin {
   position: absolute;
@@ -850,7 +865,6 @@ table td:first-child {
   color: #ddd;
 }
 div[data-ico=ico_0] {
-  background-image: url('../img/ico_set_01.png');
   background-repeat: no-repeat;
   background-size: 400% 400%;
   border-radius: 0.5rem;
@@ -858,10 +872,10 @@ div[data-ico=ico_0] {
   display: block;
   width: 100px;
   height: 100px;
+  background-image: url('../img/ico_set_01.png');
   background-position: 0px 0px;
 }
 div[data-ico=ico_1] {
-  background-image: url('../img/ico_set_01.png');
   background-repeat: no-repeat;
   background-size: 400% 400%;
   border-radius: 0.5rem;
@@ -869,10 +883,10 @@ div[data-ico=ico_1] {
   display: block;
   width: 100px;
   height: 100px;
+  background-image: url('../img/ico_set_01.png');
   background-position: -100px 0px;
 }
 div[data-ico=ico_2] {
-  background-image: url('../img/ico_set_01.png');
   background-repeat: no-repeat;
   background-size: 400% 400%;
   border-radius: 0.5rem;
@@ -880,10 +894,10 @@ div[data-ico=ico_2] {
   display: block;
   width: 100px;
   height: 100px;
+  background-image: url('../img/ico_set_01.png');
   background-position: -200px 0px;
 }
 div[data-ico=ico_3] {
-  background-image: url('../img/ico_set_01.png');
   background-repeat: no-repeat;
   background-size: 400% 400%;
   border-radius: 0.5rem;
@@ -891,10 +905,10 @@ div[data-ico=ico_3] {
   display: block;
   width: 100px;
   height: 100px;
+  background-image: url('../img/ico_set_01.png');
   background-position: -300px 0px;
 }
 div[data-ico=ico_4] {
-  background-image: url('../img/ico_set_01.png');
   background-repeat: no-repeat;
   background-size: 400% 400%;
   border-radius: 0.5rem;
@@ -902,10 +916,10 @@ div[data-ico=ico_4] {
   display: block;
   width: 100px;
   height: 100px;
+  background-image: url('../img/ico_set_01.png');
   background-position: 0px -100px;
 }
 div[data-ico=ico_5] {
-  background-image: url('../img/ico_set_01.png');
   background-repeat: no-repeat;
   background-size: 400% 400%;
   border-radius: 0.5rem;
@@ -913,10 +927,10 @@ div[data-ico=ico_5] {
   display: block;
   width: 100px;
   height: 100px;
+  background-image: url('../img/ico_set_01.png');
   background-position: -100px -100px;
 }
 div[data-ico=ico_6] {
-  background-image: url('../img/ico_set_01.png');
   background-repeat: no-repeat;
   background-size: 400% 400%;
   border-radius: 0.5rem;
@@ -924,10 +938,10 @@ div[data-ico=ico_6] {
   display: block;
   width: 100px;
   height: 100px;
+  background-image: url('../img/ico_set_01.png');
   background-position: -200px -100px;
 }
 div[data-ico=ico_7] {
-  background-image: url('../img/ico_set_01.png');
   background-repeat: no-repeat;
   background-size: 400% 400%;
   border-radius: 0.5rem;
@@ -935,10 +949,10 @@ div[data-ico=ico_7] {
   display: block;
   width: 100px;
   height: 100px;
+  background-image: url('../img/ico_set_01.png');
   background-position: -300px -100px;
 }
 div[data-ico=ico_8] {
-  background-image: url('../img/ico_set_01.png');
   background-repeat: no-repeat;
   background-size: 400% 400%;
   border-radius: 0.5rem;
@@ -946,10 +960,10 @@ div[data-ico=ico_8] {
   display: block;
   width: 100px;
   height: 100px;
+  background-image: url('../img/ico_set_01.png');
   background-position: 0px -200px;
 }
 div[data-ico=ico_9] {
-  background-image: url('../img/ico_set_01.png');
   background-repeat: no-repeat;
   background-size: 400% 400%;
   border-radius: 0.5rem;
@@ -957,10 +971,10 @@ div[data-ico=ico_9] {
   display: block;
   width: 100px;
   height: 100px;
+  background-image: url('../img/ico_set_01.png');
   background-position: -100px -200px;
 }
 div[data-ico=ico_10] {
-  background-image: url('../img/ico_set_01.png');
   background-repeat: no-repeat;
   background-size: 400% 400%;
   border-radius: 0.5rem;
@@ -968,10 +982,10 @@ div[data-ico=ico_10] {
   display: block;
   width: 100px;
   height: 100px;
+  background-image: url('../img/ico_set_01.png');
   background-position: -200px -200px;
 }
 div[data-ico=ico_11] {
-  background-image: url('../img/ico_set_01.png');
   background-repeat: no-repeat;
   background-size: 400% 400%;
   border-radius: 0.5rem;
@@ -979,6 +993,403 @@ div[data-ico=ico_11] {
   display: block;
   width: 100px;
   height: 100px;
+  background-image: url('../img/ico_set_01.png');
+  background-position: -300px -200px;
+}
+div[data-ico=ico_02_0] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_02.png');
+  background-position: 0px 0px;
+}
+div[data-ico=ico_02_1] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_02.png');
+  background-position: -100px 0px;
+}
+div[data-ico=ico_02_2] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_02.png');
+  background-position: -200px 0px;
+}
+div[data-ico=ico_02_3] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_02.png');
+  background-position: -300px 0px;
+}
+div[data-ico=ico_02_4] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_02.png');
+  background-position: 0px -100px;
+}
+div[data-ico=ico_02_5] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_02.png');
+  background-position: -100px -100px;
+}
+div[data-ico=ico_02_6] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_02.png');
+  background-position: -200px -100px;
+}
+div[data-ico=ico_02_7] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_02.png');
+  background-position: -300px -100px;
+}
+div[data-ico=ico_02_8] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_02.png');
+  background-position: 0px -200px;
+}
+div[data-ico=ico_02_9] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_02.png');
+  background-position: -100px -200px;
+}
+div[data-ico=ico_02_10] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_02.png');
+  background-position: -200px -200px;
+}
+div[data-ico=ico_02_11] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_02.png');
+  background-position: -300px -200px;
+}
+div[data-ico=ico_03_0] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_03.png');
+  background-position: 0px 0px;
+}
+div[data-ico=ico_03_1] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_03.png');
+  background-position: -100px 0px;
+}
+div[data-ico=ico_03_2] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_03.png');
+  background-position: -200px 0px;
+}
+div[data-ico=ico_03_3] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_03.png');
+  background-position: -300px 0px;
+}
+div[data-ico=ico_03_4] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_03.png');
+  background-position: 0px -100px;
+}
+div[data-ico=ico_03_5] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_03.png');
+  background-position: -100px -100px;
+}
+div[data-ico=ico_03_6] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_03.png');
+  background-position: -200px -100px;
+}
+div[data-ico=ico_03_7] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_03.png');
+  background-position: -300px -100px;
+}
+div[data-ico=ico_03_8] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_03.png');
+  background-position: 0px -200px;
+}
+div[data-ico=ico_03_9] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_03.png');
+  background-position: -100px -200px;
+}
+div[data-ico=ico_03_10] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_03.png');
+  background-position: -200px -200px;
+}
+div[data-ico=ico_03_11] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_03.png');
+  background-position: -300px -200px;
+}
+div[data-ico=ico_04_0] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_04.png');
+  background-position: 0px 0px;
+}
+div[data-ico=ico_04_1] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_04.png');
+  background-position: -100px 0px;
+}
+div[data-ico=ico_04_2] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_04.png');
+  background-position: -200px 0px;
+}
+div[data-ico=ico_04_3] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_04.png');
+  background-position: -300px 0px;
+}
+div[data-ico=ico_04_4] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_04.png');
+  background-position: 0px -100px;
+}
+div[data-ico=ico_04_5] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_04.png');
+  background-position: -100px -100px;
+}
+div[data-ico=ico_04_6] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_04.png');
+  background-position: -200px -100px;
+}
+div[data-ico=ico_04_7] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_04.png');
+  background-position: -300px -100px;
+}
+div[data-ico=ico_04_8] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_04.png');
+  background-position: 0px -200px;
+}
+div[data-ico=ico_04_9] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_04.png');
+  background-position: -100px -200px;
+}
+div[data-ico=ico_04_10] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_04.png');
+  background-position: -200px -200px;
+}
+div[data-ico=ico_04_11] {
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/ico_set_04.png');
   background-position: -300px -200px;
 }
 .info {
@@ -1089,5 +1500,79 @@ div[data-ico=ico_11] {
   background: #ddd;
 }
 .ico_list li .selected {
-  box-shadow: inset 0 0 3px #222;
+  box-shadow: inset 0 0 0 3px #222;
+}
+.color_list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+  margin: 0;
+  padding: 0rem;
+  max-height: 400px;
+  overflow-y: auto;
+}
+.color_list::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+.color_list::-webkit-scrollbar-thumb {
+  background: #777;
+}
+.color_list::-webkit-scrollbar-track {
+  background: #ddd;
+}
+.color_list body {
+  scrollbar-face-color: #777;
+  scrollbar-track-color: #ddd;
+}
+.color_list li {
+  flex-basis: 60px;
+  cursor: pointer;
+  transition: background .2s;
+}
+.color_list li:hover {
+  background: #777;
+}
+.color_list li .selected {
+  box-shadow: inset 0 0 0 2px #222;
+}
+.color_list .color_list_item {
+  height: 3rem;
+  margin: 0.5rem;
+}
+div[data-color=color_0] {
+  background-color: #f44336;
+}
+div[data-color=color_1] {
+  background-color: #9c27b0;
+}
+div[data-color=color_2] {
+  background-color: #ffc107;
+}
+div[data-color=color_3] {
+  background-color: #388e3c;
+}
+div[data-color=color_4] {
+  background-color: #3f51b5;
+}
+div[data-color=color_5] {
+  background-color: #8bc34a;
+}
+div[data-color=color_6] {
+  background-color: #e91e63;
+}
+div[data-color=color_7] {
+  background-color: #00bcd4;
+}
+div[data-color=color_8] {
+  background-color: #ff9800;
+}
+div[data-color=color_9] {
+  background-color: #607d8b;
+}
+div[data-color=color_10] {
+  background-color: #673ab7;
+}
+div[data-color=color_11] {
+  background-color: #009688;
 }

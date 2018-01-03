@@ -79,46 +79,63 @@
 }
 
 .mod_win_wrapper{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    overflow-y: scroll;
-    z-index: 999;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  overflow-y: scroll;
+  z-index: 999;
 
-    .mod_win{
-        .fr-concave;
-        display: block;
-        position: absolute;
-        width: 95%;
-        max-width: 50em;
-        min-height: 15em;
-        top: 1em;
-        //margin: 0 auto;
-        z-index: 9999;
-        background: @white - #111;
-        color: @d-gray;
-        cursor: default;
-        font-weight: normal;
+  .mod_win{
+    .fr-concave;
+    display: flex;
+    //flex-wrap: wrap;
+    flex-direction: column;
+    position: absolute;
+    width: 95%;
+    max-width: 50em;
+    min-height: 25em;
+    max-height: 65rem;
+    height: 95%;
+    top: 1em;
+    //margin: 0 auto;
+    z-index: 9999;
+    background: @white - #111;
+    color: @d-gray;
+    cursor: default;
+    font-weight: normal;
+
+    button{
+      background: white;
+      color: @d-gray;
+      padding: 1rem;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 1px 2px @m-gray;
+      transition: box-shadow .2s;
+      &:hover{
+        box-shadow: 0 3px 4px @m-gray;
+      }
     }
-    .bCloseInfoWin{
-        position: absolute;
-        top: -.2em;
-        right: 0;
-        padding: .1em .2em;
-        font-size: 300%;
-        cursor: pointer;
-        color: rgba(0,0,0,.2);
-        
-        &:hover{
-            color: rgba(0,0,0,.4);
-        }
+  }
+  .bCloseInfoWin{
+    position: absolute;
+    top: -.2em;
+    right: 0;
+    padding: .1em .2em;
+    font-size: 300%;
+    cursor: pointer;
+    color: rgba(0,0,0,.2);
+
+    &:hover{
+        color: rgba(0,0,0,.4);
     }
+  }
 }
 
 #dbg{
