@@ -574,7 +574,7 @@ div[data-color=color_11]{
 .modWinCont{
   display: flex;
   flex-direction: column;
-  flex-grow: 0;
+  flex-grow: 1;
   .scrollbars(3px, @m-gray, @l-gray);
 }
 .tabContent{
@@ -585,4 +585,9 @@ div[data-color=color_11]{
 .scrollable{
   overflow-y: auto;
   .scrollbars(3px, @m-gray, @l-gray);
+}
+
+.mod_win button{
+  width: 100%;
+  margin-top: 0.5rem;
 }
