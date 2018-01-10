@@ -20,7 +20,8 @@ function randd(min, max) {
 };
 
 window.onload = function(){
-	
+  var aHistoryData = [];
+
 	function getViewPortSize(mod) {
 		var viewportwidth;
 		var viewportheight;
@@ -140,20 +141,41 @@ window.onload = function(){
   function showAddWin(oData, nIndex){
     showDBG();
     nIndex = (nIndex != undefined)? " data-index='"+nIndex+"'" : "";
-    var sName, sInitiative, sIco;
+    var sName, sInitiative, sIco, sColor, sID;
       sName = oData? oData.name : "";
       sInitiative = oData? oData.initiative : "";
       sIco = oData? oData.ico : "";
       sColor = oData? oData.color : "";
+      sID = oData? oData.id : "";
       // <input id='sWinName' placeholder='Текст (Имя или еще что)' value='"+sName+"'>
     var colorSelect = getColors(sColor);//+"<input type='color'>";
-    var sForm = "<div><textarea id='sWinName' style='width: 95%;' placeholder='Текст (Имя или еще что)' rows='5'>"+sName+"</textarea></div>\
-    <div><input id='sWinInitiative' style='width: 95%;' type='number' placeholder='Инициатива (по умолчаниию \"0\")' value='"+sInitiative+"'></div>\
-    <div>"+colorSelect+"</div>"+getImages(sIco); // <label>Изображение: </label>"
+    var sForm = "<div class='tabContent' data-tabContent='edit'><div><textarea id='sWinName' data-id='"+sID+"' style='width: 100%;' placeholder='Текст (Имя или еще что)' rows='5'>"+sName+"</textarea></div>\
+    <div><input id='sWinInitiative' style='width: 100%;' type='number' placeholder='Инициатива (по умолчаниию \"0\")' value='"+sInitiative+"'></div>\
+    <div>"+colorSelect+"</div><div class='scrollable'>"+getImages(sIco)+"</div></div>"; // <label>Изображение: </label>"
     $(".mod_win_wrapper").remove();
 		var bCross = "<span class='bCloseInfoWin'>×</span>";
+    var sTabName = oData? "Редактировать" : "Добавить";
+    var oTop = "<div class='tabs'><span class='tab selected' data-tab='edit'>"+sTabName+"</span> <span class='tab'  data-tab='history'>Недавние</span> <span class='separator'></span> "+bCross+"</div>"
     var sButton = oData?"<button class='bApplay'>Применить</button>":"<button class='bAdd'>Добавить</button>";
-		$("body").append("<div class='mod_win_wrapper' "+nIndex+"><div class='mod_win'>"+bCross+sForm+"<br>"+sButton+"</div></div>");
+    var aHistory = [], oHistory;
+    aHistoryData.forEach(item => {
+      var oHistoryData = {
+        name: item.name,
+        initiative: item.initiative,
+        ico: item.ico,
+        color: item.color,
+        id: item.id
+      };
+      var oItem = "<li class='place'>"+
+        getItemTemplate(oHistoryData)+
+      "</li>";
+      aHistory.push(oItem);
+    });
+    if (aHistory.length<1) {
+      aHistory.push("<li class='empty'>Тут пока ничего нет.</li>");
+    }
+    oHistory = "<ul id='sWinHistory' data-tabContent='history' class='tabContent' style='display: none;'>"+aHistory.join("")+"</ul>";
+		$("body").append("<div class='mod_win_wrapper' "+nIndex+"><div class='mod_win'>"+oTop+"<div class='modWinCont'>"+sForm+oHistory+"</div><div>"+sButton+"</div></div></div>");
     $("body").css("overflow-y", "hidden");
     
     if($(".ico_list .selected").length < 1) {
@@ -175,12 +197,13 @@ window.onload = function(){
   function getItemData(nIndex){
      if(nIndex == undefined) 
        nIndex = 0;
-    var oItem = $(".place").eq(nIndex);
+    var oItem = $(".wrap .place").eq(nIndex);
     var oData = {};
     oData.name = oItem.find(".name").text();
     oData.initiative = oItem.find(".initiative").text();
     oData.ico = oItem.find(".ico").attr('data-ico');
     oData.color = oItem.find(".ico_bord").attr('data-color');
+    oData.id = oItem.find(".name").attr('data-id');
     
     return oData;
   }
@@ -202,6 +225,7 @@ window.onload = function(){
       var sColor = oData.color;
       var nInitiative = oData.initiative;
       var sName = oData.name;
+      var sID = oData.id;
       var oItem = "<div class='i_item'>\
           <div class='ico_bord' data-color='"+sColor+"'>\
             <div class='ico' data-ico='"+sIco+"'></div>\
@@ -209,7 +233,7 @@ window.onload = function(){
           </div>\
           <div class='info'>\
             <div class='minus'>-</div>\
-            <div class='name'>"+sName+"</div>\
+            <div class='name' data-id='"+sID+"'>"+sName+"</div>\
           </div>\
         </div>";
       return oItem;
@@ -219,10 +243,11 @@ window.onload = function(){
     if(oData && oData.ico){
       if(nIndex == undefined) 
         nIndex = $("#allOnes .place").length;
-      var sIco = oData.ico;
-      var sColor = oData.color;
-      var nInitiative = oData.initiative;
-      var sName = oData.name;
+      // var sIco = oData.ico;
+      // var sColor = oData.color;
+      // var nInitiative = oData.initiative;
+      // var sName = oData.name;
+      // var sID = oData.id;
       var oItem = "<li class='place' style='display: none'>"+
         getItemTemplate(oData)+
       "</li>";
@@ -248,11 +273,12 @@ window.onload = function(){
     var sColor = oData.color;
     var nInitiative = oData.initiative;
     var sName = oData.name;
+    var sID = oData.id;
     
     $(".place").eq(nIndex).find(".ico_bord").attr('data-color', sColor);
     $(".place").eq(nIndex).find(".ico").attr('data-ico', sIco);
     $(".place").eq(nIndex).find(".initiative").text(nInitiative);
-    $(".place").eq(nIndex).find(".name").text(sName);
+    $(".place").eq(nIndex).find(".name").text(sName).attr('data-id', sID);
   }
   function updateSelected(oData){
     var oDef = $.Deferred();
@@ -318,9 +344,11 @@ window.onload = function(){
     oData.list = [];
     //oData.list.push(getSelectedItemData(0));
     
-    for(var i=0; i<$(".place").length; i++) {
+    for(var i=0; i<$(".wrap .place").length; i++) {
       oData.list.push(getItemData(i));
     }
+    
+    oData.history = aHistoryData;
     
     return oData;
   }
@@ -343,17 +371,22 @@ window.onload = function(){
   }
   
   function loadData(){
-    var oData = getConfig("oInitiativeTrackerData");
-    if(oData && oData.list.length > 0){
-      oData = oData.list.filter(function(item){return (item.ico)?true: false;});
-      updateSelected(oData[0]);
-      for(var i=0; i<oData.length-1; i++) {
-          addItem(oData[1+i]);
+    var oLocalData = getConfig("oInitiativeTrackerData");
+    if(oLocalData){
+      if(oLocalData.list.length > 0){        
+        oData = oLocalData.list.filter(function(item){return (item.id != "undefined")?true: false;});
+        updateSelected(oData[0]);
+        for(var i=0; i<oData.length-1; i++) {
+            addItem(oData[1+i]);
+        }
+        $("#allOnes li").show();
+        makeDraggable();
       }
-      $("#allOnes li").show();
-      makeDraggable();
+      if(oLocalData.history.length > 0){
+        aHistoryData = oLocalData.history;        
+      }        
     }
-      setSeparators();
+    setSeparators();
   }
   
   function setSeparators() {
@@ -367,6 +400,23 @@ window.onload = function(){
      $("#allOnes").prepend(oSeparator);
   }
   
+  function addToHistory(oData) {
+    aHistoryData.unshift(oData);
+    if(aHistoryData.length > 20) {
+      aHistoryData.pop();
+    } 
+  }
+  function editInHistory(oData) {
+    var aEl = aHistoryData.filter(item => item.name==oData.name);
+    if(aEl.length) {
+      aEl[0] = oData;
+    }
+  }
+  
+  function getNewId() {
+    q = new Date()
+    return q.getTime()
+  }
   
   $("#manageButtons").on("click", "#nextOne", function(){
     chooseNext();
@@ -406,15 +456,18 @@ window.onload = function(){
     var sIco = ($("#sWinIco .selected").length>0)?$("#sWinIco .selected").attr("data-ico"): "";
     var sColor = ($("#sWinColor .selected").length>0)?$("#sWinColor .selected").attr("data-color"): "";
     var nIndex = $(".mod_win_wrapper").attr("data-index");
+    var sID = $("#sWinName").attr("data-id") || "";
     
     var oData = {
       name: sName,
       initiative: sInitiative,
       ico: sIco,
-      color: sColor
+      color: sColor,
+      id: sID
     };
     
-    setItem(oData, nIndex);   
+    setItem(oData, nIndex);
+    editInHistory(oData);    
     $(".bCloseInfoWin").click();
     makeDraggable();
     saveData();
@@ -426,19 +479,30 @@ window.onload = function(){
     var sIco = ($("#sWinIco .selected").length>0)?$("#sWinIco .selected").attr("data-ico"): "";
     var sColor = ($("#sWinColor .selected").length>0)?$("#sWinColor .selected").attr("data-color"): "";
     var nIndex = $(".mod_win_wrapper").attr("data-index");
+    var sID = $("#sWinName").attr("data-id") || getNewId();
     
     var oData = {
       name: sName,
       initiative: sInitiative,
       ico: sIco,
-      color: sColor
+      color: sColor,
+      id: sID
     };
     
-    addItem(oData, nIndex);   
+    addItem(oData, nIndex);  
+    addToHistory(oData);
     $(".bCloseInfoWin").click();
     saveData();
     makeDraggable();
     setSeparators();
+  });
+  
+  $("body").on('click', ".mod_win .tab", function(){
+    $(".mod_win  .tab").removeClass("selected");
+    $(this).addClass('selected');
+    $(".mod_win  .tabContent").hide();
+    var sName = $(this).attr('data-tab');
+    $(".mod_win  *[data-tabContent='"+sName+"']").show();
   });
   
   loadData();

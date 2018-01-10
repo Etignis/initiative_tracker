@@ -1474,22 +1474,6 @@ div[data-ico=ico_04_11] {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  max-height: 400px;
-  overflow-y: auto;
-}
-.ico_list::-webkit-scrollbar {
-  width: 3px;
-  height: 3px;
-}
-.ico_list::-webkit-scrollbar-thumb {
-  background: #777;
-}
-.ico_list::-webkit-scrollbar-track {
-  background: #ddd;
-}
-.ico_list body {
-  scrollbar-face-color: #777;
-  scrollbar-track-color: #ddd;
 }
 .ico_list li {
   flex-basis: 100px;
@@ -1575,4 +1559,104 @@ div[data-color=color_10] {
 }
 div[data-color=color_11] {
   background-color: #009688;
+}
+.tabs {
+  display: flex;
+  background: #d0d0d0;
+  margin: -0.6em -0.7em 0.3em;
+  flex-shrink: 0;
+}
+.tabs .tab {
+  padding: 0.3em;
+  margin-right: 0.3em;
+  background: #dddddd;
+  color: #777;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color .2s, background, .2s;
+}
+.tabs .tab:hover {
+  color: #222;
+}
+.tabs .selected {
+  background: #eeeeee;
+}
+.tabs .separator {
+  flex-grow: 99;
+}
+.tabs .bCloseInfoWin {
+  top: -0.45em;
+}
+#sWinHistory {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: scroll;
+}
+#sWinHistory::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+#sWinHistory::-webkit-scrollbar-thumb {
+  background: #777;
+}
+#sWinHistory::-webkit-scrollbar-track {
+  background: #ddd;
+}
+#sWinHistory body {
+  scrollbar-face-color: #777;
+  scrollbar-track-color: #ddd;
+}
+#sWinHistory li {
+  opacity: 0.8;
+  transition: opacity 0.2s;
+  cursor: pointer;
+}
+#sWinHistory li:hover {
+  opacity: 1;
+}
+#sWinHistory .empty {
+  padding: 1em;
+  font-weight: bold;
+  text-align: center;
+}
+.modWinCont {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 0;
+}
+.modWinCont::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+.modWinCont::-webkit-scrollbar-thumb {
+  background: #777;
+}
+.modWinCont::-webkit-scrollbar-track {
+  background: #ddd;
+}
+.modWinCont body {
+  scrollbar-face-color: #777;
+  scrollbar-track-color: #ddd;
+}
+.tabContent {
+  display: flex;
+  flex-direction: column;
+}
+.scrollable {
+  overflow-y: auto;
+}
+.scrollable::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+.scrollable::-webkit-scrollbar-thumb {
+  background: #777;
+}
+.scrollable::-webkit-scrollbar-track {
+  background: #ddd;
+}
+.scrollable body {
+  scrollbar-face-color: #777;
+  scrollbar-track-color: #ddd;
 }
