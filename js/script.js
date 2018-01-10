@@ -194,10 +194,16 @@ window.onload = function(){
     hideDBG();
   }
 
-  function getItemData(nIndex){
+  function getItemData(nIndex, oParam){
      if(nIndex == undefined) 
        nIndex = 0;
-    var oItem = $(".wrap .place").eq(nIndex);
+    var sParentSelector = ".wrap";
+    if(oParam) {
+      if(oParam.fromHistory) {
+        sParentSelector = "#sWinHistory"
+      }
+    }
+    var oItem = $(sParentSelector+" .place").eq(nIndex);
     var oData = {};
     oData.name = oItem.find(".name").text();
     oData.initiative = oItem.find(".initiative").text();
@@ -443,7 +449,7 @@ window.onload = function(){
     $(".color_list_item").removeClass('selected');
     $(this).addClass('selected');
   });
-  $("body").on("dblclick", ".place", function(){
+  $("body").on("dblclick", ".wrap .place", function(){
     var nIndex = $(this).index(".place");
     //alert(nIndex);
     var oData = getItemData(nIndex);
@@ -503,6 +509,20 @@ window.onload = function(){
     $(".mod_win  .tabContent").hide();
     var sName = $(this).attr('data-tab');
     $(".mod_win  *[data-tabContent='"+sName+"']").show();
+  });
+  
+  $("body").on("click", "#sWinHistory .place", function(){
+    var nIndex = $(this).index("#sWinHistory .place");
+    //alert(nIndex);
+    var oData = getItemData(nIndex, {fromHistory: true});
+    
+    nIndex = $(".mod_win_wrapper").attr("data-index");
+    addItem(oData, nIndex);
+    //showAddWin(oData, nIndex);  
+    $(".bCloseInfoWin").click();
+    makeDraggable();
+    setSeparators();
+    saveData();
   });
   
   loadData();

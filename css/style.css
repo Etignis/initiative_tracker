@@ -173,7 +173,13 @@ table td:first-child {
   overflow: hidden;
   float: none;
   clear: both;
-  max-width: 60rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+.pageColumn {
+  flex-shrink: 1;
+  flex-grow: 1;
+  flex-basis: 35rem;
 }
 .combo_box {
   position: relative;
