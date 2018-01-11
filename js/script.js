@@ -157,6 +157,20 @@ window.onload = function(){
     var sTabName = oData? "Редактировать" : "Добавить";
     var oTop = "<div class='tabs'><span class='tab selected' data-tab='edit'>"+sTabName+"</span> <span class='tab'  data-tab='history'>Недавние</span> <span class='separator'></span> "+bCross+"</div>"
     var sButton = oData?"<button class='bApplay'>Применить</button>":"<button class='bAdd'>Добавить</button>";
+    oHistory = getHistoryList();
+		$("body").append("<div class='mod_win_wrapper' "+nIndex+"><div class='mod_win'>"+oTop+"<div class='modWinCont'>"+sForm+oHistory+"</div><div>"+sButton+"</div></div></div>");
+    $("body").css("overflow-y", "hidden");
+    
+    if($(".ico_list .selected").length < 1) {
+      $(".ico_list .ico_list_item").eq(0).addClass("selected");
+    }
+    if($(".color_list .selected").length < 1) {
+      $(".color_list .color_list_item").eq(0).addClass("selected");
+    }
+    
+		$(".mod_win_wrapper").fadeIn();
+  }
+  function getHistoryList(){
     var aHistory = [], oHistory;
     aHistoryData.forEach(item => {
       var oHistoryData = {
@@ -175,17 +189,7 @@ window.onload = function(){
       aHistory.push("<li class='empty'>Тут пока ничего нет.</li>");
     }
     oHistory = "<ul id='sWinHistory' data-tabContent='history' class='tabContent' style='display: none;'>"+aHistory.join("")+"</ul>";
-		$("body").append("<div class='mod_win_wrapper' "+nIndex+"><div class='mod_win'>"+oTop+"<div class='modWinCont'>"+sForm+oHistory+"</div><div>"+sButton+"</div></div></div>");
-    $("body").css("overflow-y", "hidden");
-    
-    if($(".ico_list .selected").length < 1) {
-      $(".ico_list .ico_list_item").eq(0).addClass("selected");
-    }
-    if($(".color_list .selected").length < 1) {
-      $(".color_list .color_list_item").eq(0).addClass("selected");
-    }
-    
-		$(".mod_win_wrapper").fadeIn();
+    return oHistory;
   }
   function hideAddWin(){
     $(".mod_win_wrapper").fadeOut(400, function(){
@@ -523,6 +527,23 @@ window.onload = function(){
     makeDraggable();
     setSeparators();
     saveData();
+  });
+  
+  $("body").on("click", "#sWinHistory .minus", function(){
+    var nIndex = $(this).closest(".place").index("#sWinHistory .place");
+    //alert(nIndex);
+    var oData = getItemData(nIndex, {fromHistory: true});
+    
+    aHistoryData.splice(nIndex, 1);
+    //showAddWin(oData, nIndex);  
+    //$(".bCloseInfoWin").click();
+    //makeDraggable();
+    //setSeparators();
+    //var oList = getHistoryList();
+    $("#sWinHistory li").eq(nIndex).slideUp();
+    
+    saveData();
+    return false;
   });
   
   loadData();
