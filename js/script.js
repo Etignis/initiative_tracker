@@ -294,6 +294,7 @@ window.onload = function(){
     var oDef = $.Deferred();
     var oDef1 = $.Deferred();
     var oDef2 = $.Deferred();
+    if(oData){
     var oItem = "<div class='place' style='display: none'>"+getItemTemplate(oData)+"</div>";
     $("#selectedOne").append(oItem);
     if($("#selectedOne").find(".place").length > 1) {
@@ -311,6 +312,10 @@ window.onload = function(){
         oDef1.resolve();
         oDef2.resolve();
       });
+    }
+    } else {
+    	oDef1.resolve();
+	oDef2.resolve();  
     }
     
     $.when(oDef1, oDef2).done(function(){
