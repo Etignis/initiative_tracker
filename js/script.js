@@ -104,24 +104,29 @@ window.onload = function(){
 	});
   function getImages(sIco) {
     var aIcos = [];
-    for(var i=0; i<12; i++) {
+    for(var i=0; i<16; i++) {
       var sSelected = (sIco=="ico_"+i)? " selected" : "";
       var oItem = "<li><div class='ico_list_item "+sSelected+"' data-ico='ico_"+i+"'></div></li>";
       aIcos.push(oItem);
     }
-    for(var i=0; i<12; i++) {
+    for(var i=0; i<16; i++) {
       var sSelected = (sIco=="ico_02_"+i)? " selected" : "";
       var oItem = "<li><div class='ico_list_item "+sSelected+"' data-ico='ico_02_"+i+"'></div></li>";
       aIcos.push(oItem);
     }
-    for(var i=0; i<12; i++) {
+    for(var i=0; i<16; i++) {
       var sSelected = (sIco=="ico_04_"+i)? " selected" : "";
       var oItem = "<li><div class='ico_list_item "+sSelected+"' data-ico='ico_04_"+i+"'></div></li>";
       aIcos.push(oItem);
     }
-    for(var i=0; i<12; i++) {
+    for(var i=0; i<16; i++) {
       var sSelected = (sIco=="ico_03_"+i)? " selected" : "";
       var oItem = "<li><div class='ico_list_item "+sSelected+"' data-ico='ico_03_"+i+"'></div></li>";
+      aIcos.push(oItem);
+    }
+    for(var i=0; i<16; i++) {
+      var sSelected = (sIco=="ico_05_"+i)? " selected" : "";
+      var oItem = "<li><div class='ico_list_item "+sSelected+"' data-ico='ico_05_"+i+"'></div></li>";
       aIcos.push(oItem);
     }
     var sList = "<ul class='ico_list' id='sWinIco' >"+aIcos.join("")+"</ul>";
@@ -315,7 +320,7 @@ window.onload = function(){
     }
     } else {
     	oDef1.resolve();
-	oDef2.resolve();  
+			oDef2.resolve();  
     }
     
     $.when(oDef1, oDef2).done(function(){
@@ -333,10 +338,14 @@ window.onload = function(){
       var oDef1 = $.Deferred();
       var oDef2 = $.Deferred();
       // initiative rotation
-      oItem.slideUp(400, function(){
-        oItem.remove();
-        oDef1.resolve();      
-      });
+			if(oItem){
+				oItem.slideUp(400, function(){
+					oItem.remove();
+					oDef1.resolve();      
+				});
+			} else {
+				oDef1.resolve(); 
+			}
       addItem(oData);
       $("#allOnes  .place").eq(-1).slideDown(400, function(){
         $("#allOnes  .place").eq(-1).css('height', 'auto');
@@ -394,7 +403,7 @@ window.onload = function(){
         oData = oLocalData.list.filter(function(item){return (item.id != "undefined")?true: false;});
         updateSelected(oData[0]);
         for(var i=0; i<oData.length-1; i++) {
-            addItem(oData[1+i]);
+          addItem(oData[1+i]);
         }
         $("#allOnes li").show();
         makeDraggable();
