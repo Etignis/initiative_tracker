@@ -242,7 +242,7 @@ window.onload = function(){
             <div class='initiative'>"+nInitiative+"</div>\
           </div>\
           <div class='info'>\
-            <div class='minus'>-</div>\
+            <div class='minus' title='Убрать'>-</div>\
             <div class='name' data-id='"+sID+"'>"+sName+"</div>\
           </div>\
         </div>";
@@ -346,7 +346,9 @@ window.onload = function(){
           setSeparators();
         }
       )
-    }
+    } else {
+			alert("Сначала добавьте кого-нибудь через 'плюсик'");
+		}
   }
   
   function getDataFromView(){
@@ -402,7 +404,7 @@ window.onload = function(){
   function setSeparators() {
     $("#allOnes .separator").remove();
     var oSeparator = "<li class='separator'>\
-      <div class='simbol'>+</div>\
+      <div class='simbol' title='Добавить'>+</div>\
     </li>";
      $("#allOnes .place").each(function(){
        $(this).after(oSeparator);
@@ -429,6 +431,7 @@ window.onload = function(){
   }
   
   $("#manageButtons").on("click", "#nextOne", function(){
+		
     chooseNext();
     return false;
   });
