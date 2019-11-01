@@ -28,6 +28,34 @@
 </head>
 <body>
 
+
+	<div id='wrap'>
+		<div class='pageColumn'>
+			<tracker>
+			</tracker>
+		</div>
+		<div class='pageColumn'>
+			<div id='info_text'>
+				<h1>Трекер инициативы</h1>
+				
+				<p>
+					Подходит для игр, где ходы делаются по определенной очередности.
+				</p>
+				
+				<p>
+					Через кнопки с плюсом [+] добавляются новые персонажи/монстры. В диалоговом окне можно ввести текст - имя, описание или еще что-нибудь важное, числовое значение инициативы, выбрать иконку и цвет, чтобы было проще различать персонажей.
+				</p>
+				
+				<p>
+					Двойной клик (длинный тап на телефоне) по элементу откроет окно с настройками, теми же, что и при добавлении. Так же элементы можно переставлять, зажав иконку левой кнопкой мыши.
+				</p>
+				
+				<p>
+					Кнопка [Следующий] сделает активным персонажа, который вверху списка. Список зациклен.
+				</p>
+			</div>
+		</div>
+	</div>
   <div class='wrap'>
     <div class='pageColumn'>
       <div id='selectedOne'>
@@ -90,11 +118,15 @@
 		<img src='img/ico_set_05.png'>
 	</div>
 
-  <script type='text/javascript' src='../_js/jquery-1.11.3.min.js'></script>
-  <script type='text/javascript' src='https://tentaculus.ru/_js/jquery.mobile.custom.min.js' defer></script>
-  <script type='text/javascript' src='js/script.js?v=0.47' defer></script>
-  <script type='text/javascript' src='js/Sortable.js'></script><!-- Sortable Drag'n'Drop-->
+  <!-- <script type='text/javascript' src='../_js/jquery-1.11.3.min.js'></script> -->
+  <!-- <script type='text/javascript' src='https://tentaculus.ru/_js/jquery.mobile.custom.min.js' defer></script> -->
+  <!-- <script type='text/javascript' src='js/script.js?v=0.47' defer></script> -->
+  <!-- <script type='text/javascript' src='js/Sortable.js'></script><!-- Sortable Drag'n'Drop--> 
 <!--   <script type='text/javascript' src='https://tentaculus.ru/items/js/update.js' defer></script> -->
+	
+  <script type='text/javascript' src='js/vue.js' defer></script>
+  <script type='text/javascript' src='js/controller.js' defer></script>
+
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
     (function (d, w, c) {
