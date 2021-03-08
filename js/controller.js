@@ -2,7 +2,6 @@ function randd(min, max) {
   return Math.floor(arguments.length > 1 ? (max - min + 1) * Math.random() + min : (min + 1) * Math.random());
 };
 
-Vue.use(Vuex);
 /*
 
 oInitiativeTrackerData = {
@@ -73,7 +72,8 @@ Vue.component('queueItem', {
 		},
 		initiative: {
 			type: Number,
-			default: ""
+			coerce: function(str) { console.log('12'); return Number(str)},
+			default: 0
 		},
 		id: {
 			type: String,
@@ -195,20 +195,10 @@ Vue.component('tab', {
 </div>`
 });
 
-const store = new Vuex.Store({
-  state: {
-    count: 0
-  },
-  mutations: {
-    increment (state) {
-      state.count++
-    }
-  }
-});
+
 
 var app = new Vue({
 	el: '#app',
-	store: store,
 	data: {
 		data: {
 			list: [],
@@ -486,7 +476,7 @@ var app = new Vue({
 				icon: 'ico_05_14'
 			},
 			{
-				icon: 'ico_05_14'
+				icon: 'ico_05_15'
 			},
 			
 		],
@@ -501,7 +491,7 @@ var app = new Vue({
 		},
 		
 		tabs: {
-			selected: ""
+			selected: "editor"
 		},
 		
 		oConfig: {},
@@ -576,6 +566,7 @@ var app = new Vue({
 			this.setConfig('list', this.data.list);
 		},
 		editItem: function(nIndex){
+			this.tabs.selected = "editor";
 			let index = ~~(nIndex/2);
 			
 			let oItem = this.data.list[index];

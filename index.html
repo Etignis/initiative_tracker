@@ -35,25 +35,21 @@
       <div id='selectedOne'>
         <queue-item	
 					v-show="selected && selected.id"
-					:item_id="selected.id"
-					:item_name="selected.name"
-					:item_ico="selected.ico"
-					:item_initiative="selected.initiative"
-					:item_color="selected.color"
+					:id="selected.id"
+					:name="selected.name"
+					:ico="selected.ico"
+					:initiative="selected.initiative"
+					:color="selected.color"
 				/>
       </div>
       
       <div id='manageButtons' class='manageButtons'>
-        <!-- <a href='#' id='prevOne'> -->
-          <!-- Предыдущий -->
-        <!-- </a>       -->   
         <a href='#' id='nextOne' class='mButton'>
           Следующий
         </a>    
       </div>
       
       <ul id='allOnes'>
-				<!--<adder @click='add_item'/> -->
 				<component
 					v-for="(item, index) in fullList"
 					:key="index"
@@ -64,20 +60,9 @@
 					v-on:remove="listRemove(index, item.type)"
 					v-on:edit="listEdit(index, item.type)"
 				/>
-				<!--<queue-item
-					v-for="item in data.list"
-					:item_id="item.id"
-					:item_name="item.name"
-					:item_ico="item.ico"
-					:item_initiative="item.initiative"
-					:item_color="item.color"
-				/>-->
       </ul>
 			
       <div id='subManageButtons' class='manageButtons'>
-        <!-- <a href='#' id='prevOne'> -->
-          <!-- Предыдущий -->
-        <!-- </a>       -->
         <a href='#' id='sortItems' class='mButton'>
           Отсортировать
         </a>      
@@ -142,7 +127,11 @@
 							<div class="scrollable" style="height: 39rem;">
 								<ul class="ico_list" id="sWinIco">
 									<li v-for='item in aIcons'>
-										<div :class="{ico_list_item: true, selected: editor.ico == item.icon}" :data-ico="item.icon" @click="iconSelected(item.icon)"></div>
+										<div 
+											:class="{ico_list_item: true, selected: editor.ico == item.icon}" 
+											:data-ico="item.icon" 
+											:data-color="editor.ico == item.icon?editor.color:''"
+											@click="iconSelected(item.icon)"></div>
 									</li>
 								</ul>
 							</div>
@@ -150,7 +139,7 @@
 						
 						<tab  v-show='tabs.selected == "history"'>
 							<ul id='sWinHistory'>
-								<!--<adder @click='add_item'/> -->
+						
 								<queue-item
 									v-for="(item, index) in data.history"
 									:key="index"
@@ -180,7 +169,6 @@
 	</div>
 
   <script type='text/javascript' src='js/vue.js' defer></script>
-  <script type='text/javascript' src='js/vuex.js' defer></script>
   <script type='text/javascript' src='js/controller.js' defer></script>
   <script type='text/javascript' src='js/Sortable.js' defer></script><!-- Sortable Drag'n'Drop-->
 

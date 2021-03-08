@@ -1531,6 +1531,7 @@ div[data-ico=ico_05_15] {
   flex-basis: 100px;
   cursor: pointer;
   transition: background .2s;
+  margin: .5rem;
 }
 .ico_list li:hover {
   background: #ddd;
