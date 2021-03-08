@@ -28,10 +28,17 @@
 </head>
 <body>
 
-  <div class='wrap'>
+  <div class='wrap' id='app'>
     <div class='pageColumn'>
       <div id='selectedOne'>
-        
+        <queue-item	
+					v-show="selected && selected.id"
+					:item_id="selected.id"
+					:item_name="selected.name"
+					:item_ico="selected.ico"
+					:item_initiative="selected.initiative"
+					:item_color="selected.color"
+				/>
       </div>
       
       <div id='manageButtons' class='manageButtons'>
@@ -44,7 +51,25 @@
       </div>
       
       <ul id='allOnes'>
-
+				<!--<adder @click='add_item'/> -->
+				<component
+					v-for="(item, index) in fullList"
+					:key="index"
+					v-bind:is="item.type"
+					v-bind="item.props"
+					
+					v-on:press="listClick(index, item.type)"
+					v-on:remove="listRemove(index, item.type)"
+					v-on:edit="listEdit(index, item.type)"
+				/>
+				<!--<queue-item
+					v-for="item in data.list"
+					:item_id="item.id"
+					:item_name="item.name"
+					:item_ico="item.ico"
+					:item_initiative="item.initiative"
+					:item_color="item.color"
+				/>-->
       </ul>
 			
       <div id='subManageButtons' class='manageButtons'>
@@ -78,6 +103,68 @@
         </p>
       </div>
     </div>
+		
+		<modal-win
+			v-show="bModalWinShow"
+			@close="closeModal">	
+			<div slot="content" >
+				<div class='tabs'>
+					<ul class='tab_titles'>
+						<li :class='{tab_title: true, selected: tabs.selected == "editor"}' @click="tab_select('editor')">Редактор</li>
+						<li :class='{tab_title: true, selected: tabs.selected == "history"}' @click="tab_select('history')">История</li>
+					</ul>
+					<div>
+						<tab v-show='tabs.selected == "editor"'>
+							<div>
+								<textarea 
+								id="sWinName" 
+								style="width: 100%;" 
+								placeholder="Текст (Имя или еще что)" 
+								rows="5"
+								v-model="editor.name"
+								 >
+								</textarea>
+							</div>    
+							<div>
+								<input id="sWinInitiative" style="width: 100%;" type="number" placeholder="Инициатива (по умолчаниию &quot;0&quot;)" v-model="editor.initiative">
+							</div>    
+							<div>
+								<ul class="color_list" id="sWinColor">
+									<li v-for='item in aColors'>
+										<div :class="{color_list_item: true, selected: editor.color == item.color}" :data-color="item.color" @click="colorSelected(item.color)"></div>
+									</li>
+								</ul>
+							</div>
+							<div class="scrollable" style="height: 39rem;">
+								<ul class="ico_list" id="sWinIco">
+									<li v-for='item in aIcons'>
+										<div :class="{ico_list_item: true, selected: editor.ico == item.icon}" :data-ico="item.icon" @click="iconSelected(item.icon)"></div>
+									</li>
+								</ul>
+							</div>
+						</tab>
+						
+						<tab  v-show='tabs.selected == "history"'>
+							<ul id='sWinHistory'>
+								<!--<adder @click='add_item'/> -->
+								<queue-item
+									v-for="(item, index) in data.history"
+									:key="index"
+									v-bind="item"
+									
+									v-on:remove="historyRemove(index)"
+									v-on:press="historyClick(index)"
+								/>								
+							</ul>
+						</tab>
+					</div>
+					
+				</div>	
+				
+				<div><button @click='apply'>Применить</button></div> 
+			</div>
+		<modal-win>
+		
   </div>
 	
 	<div style='width: 0; height: 0; position: absolute; overflow: hidden'>
@@ -88,11 +175,10 @@
 		<img src='img/ico_set_05.png'>
 	</div>
 
-  <script type='text/javascript' src='../_js/jquery-1.11.3.min.js'></script>
-  <script type='text/javascript' src='https://tentaculus.ru/_js/jquery.mobile.custom.min.js' defer></script>
-  <script type='text/javascript' src='js/script.js?v=0.43' defer></script>
-  <script type='text/javascript' src='js/Sortable.js'></script><!-- Sortable Drag'n'Drop-->
-<!--   <script type='text/javascript' src='https://tentaculus.ru/items/js/update.js' defer></script> -->
+  <script type='text/javascript' src='js/vue.js' defer></script>
+  <script type='text/javascript' src='js/vuex.js' defer></script>
+  <script type='text/javascript' src='js/component.js' defer></script>
+  <script type='text/javascript' src='js/Sortable.js' defer></script><!-- Sortable Drag'n'Drop-->
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
     (function (d, w, c) {
