@@ -32,19 +32,19 @@
   <div class='wrap' id='app'>
 
     <div class='pageColumn'>
-      <div id='selectedOne'>
+      <ul id='selectedOne'>
         <queue-item	
-					v-show="selected && selected.id"
+					v-show="selected && selected.ico"
 					:id="selected.id"
 					:name="selected.name"
 					:ico="selected.ico"
 					:initiative="selected.initiative"
 					:color="selected.color"
 				/>
-      </div>
+      </ul>
       
       <div id='manageButtons' class='manageButtons'>
-        <a href='#' id='nextOne' class='mButton'>
+        <a href='#' class='mButton' @click="next_char">
           Следующий
         </a>    
       </div>

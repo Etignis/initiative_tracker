@@ -501,13 +501,15 @@ var app = new Vue({
 
 	computed: {
 		selected: function(){
-			return (this.data.list && this.data.list.length)? this.data.list[0] : {};
+			let oItem = (this.data.list && this.data.list.length)? this.data.list[0] : {};
+			return oItem;
 		},
 		
 		fullList: function(){
-			return [{type: 'adder'}]
+			
+			return (this.data.list && this.data.list.length>0)? [{type: 'adder'}]
 			.concat(
-				this.data.list.map(el=> [
+				this.data.list.slice(1).map(el=> [
 				{
 					type: 'queueItem',
 					props: el
@@ -518,7 +520,9 @@ var app = new Vue({
 					
 					}
 				}])
-			).flat(2);
+			).flat(2) 
+			:
+			[{type: 'adder'}];
 		}
 		
 	},
@@ -590,6 +594,11 @@ var app = new Vue({
 			this.editor.ico = sIco;
 		},
 		
+		next_char: function(){
+			let oItem = this.data.list.shift();
+			this.data.list.push(oItem);
+		},
+		
 		apply: function(){
 			let oItem = {
 				name: this.editor.name,
@@ -620,6 +629,7 @@ var app = new Vue({
 			if(this.data.history.length>20) {
 				this.data.history.pop();
 			}
+			oItem.initiative = Number(oItem.initiative);
 			this.data.history.unshift(oItem);
 			this.setConfig('history', this.data.history);
 		},
@@ -649,11 +659,13 @@ var app = new Vue({
 		loadConfigData: function(){
 			let aList = this.getConfig("list");
 			if(aList && aList.length){
+				aList.forEach(el=>{el.initiative = Number(el.initiative);})
 				this.data.list = aList;					
 			}
 			
 			let aHistory = this.getConfig("history");
 			if(aHistory && aHistory.length){
+				aHistory.forEach(el=>{el.initiative = Number(el.initiative);})
 				this.data.history = aHistory;					
 			}			
 		},

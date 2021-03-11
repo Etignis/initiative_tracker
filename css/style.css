@@ -539,6 +539,7 @@ table td:first-child {
   margin-bottom: 0.3rem;
   min-height: 5rem;
 }
+#selectedOne,
 #allOnes {
   list-style-type: none;
   margin: 0;
