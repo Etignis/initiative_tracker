@@ -181,41 +181,6 @@ table td:first-child {
   flex-grow: 1;
   flex-basis: 35rem;
 }
-.page {
-  -webkit-perspective: 800px;
-  -moz-perspective: 800px;
-  -o-perspective: 800px;
-  perspective: 800px;
-  width: 21cm;
-  min-height: 29.7cm;
-  padding: 1cm .5cm;
-  margin: 0 auto 10px;
-  border: 1px #D3D3D3 solid;
-  border-radius: 5px;
-  background: white;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  position: relative;
-  display: block;
-}
-.page:before {
-  counter-increment: p_num;
-  content: counter(p_num);
-  position: absolute;
-  left: 50%;
-  top: 10px;
-}
-.page:after {
-  content: counter(p_num);
-  position: absolute;
-  left: 50%;
-  bottom: 15px;
-}
-.subpage {
-  text-align: left;
-  font-size: 0;
-  font-size: 14px;
-  padding-left: 1em;
-}
 .bt {
   -webkit-border-radius: 3px 3px 3px 3px;
   -moz-border-radius: 3px 3px 3px 3px;
@@ -413,41 +378,6 @@ table td:first-child {
   font-weight: 600;
   max-width: 90rem;
 }
-#topMessage {
-  padding: .2em;
-  padding-bottom: .3em;
-  background: #487EC5;
-  color: #fff;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  align-content: stretch;
-}
-#topMessage a {
-  color: #fff;
-  text-decoration: none;
-}
-#topMessage .dDetails {
-  display: none;
-}
-#topMessage .bHide {
-  align-self: flex-end;
-  border: none;
-  cursor: pointer;
-  padding: .1em .3em;
-  margin: .1em .1em 0em;
-  background: transparent;
-  text-decoration: none;
-  color: #fff;
-  transition: background .3s, color .3s;
-  font-weight: 600;
-}
-#topMessage .bHide:hover {
-  background: #fefefe;
-  color: #376db4;
-  box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.2);
-}
 @media screen and (min-width: 65em) {
   body {
     background: url('../img/bg_hor.jpg') center center no-repeat;
@@ -531,6 +461,30 @@ table td:first-child {
   margin: 0;
   padding: 0;
   position: relative;
+  max-height: 11rem;
+  overflow: hidden;
+}
+.place.hiding {
+  max-height: 0;
+  transition: max-height 0.4s;
+}
+.shown {
+  /*max-height: 11rem;
+	transition: max-height 0;*/
+}
+@keyframes growing {
+  from {
+    max-height: 0;
+  }
+  to {
+    max-height: 11rem;
+  }
+}
+.last_appear {
+  animation-name: growing;
+  animation-duration: .4s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }
 .i_item {
   text-align: left;

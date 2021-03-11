@@ -494,6 +494,8 @@ var app = new Vue({
 			selected: "editor"
 		},
 		
+		animate: false,
+		
 		oConfig: {},
 		
 		bModalWinShow: false
@@ -503,6 +505,16 @@ var app = new Vue({
 		selected: function(){
 			let oItem = (this.data.list && this.data.list.length)? this.data.list[0] : {};
 			return oItem;
+		},
+		
+		firsts: function(){
+			if(this.data.list && this.data.list.length) {
+				let aList = [this.data.list[0]];
+				aList.push(this.data.list[1]?this.data.list[1]:this.data.list[0]);
+				return aList;
+			} else {
+				return [];
+			}
 		},
 		
 		fullList: function(){
@@ -595,8 +607,15 @@ var app = new Vue({
 		},
 		
 		next_char: function(){
-			let oItem = this.data.list.shift();
-			this.data.list.push(oItem);
+			if(!this.animate){
+				this.animate = true;
+				let oItem = this.data.list[0];
+				this.data.list.push(oItem);
+				setTimeout(function(){
+					this.data.list.shift();
+					this.animate = false;
+				}.bind(this), 400);
+			}
 		},
 		
 		apply: function(){

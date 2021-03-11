@@ -33,13 +33,23 @@
 
     <div class='pageColumn'>
       <ul id='selectedOne'>
-        <queue-item	
-					v-show="selected && selected.ico"
-					:id="selected.id"
-					:name="selected.name"
-					:ico="selected.ico"
-					:initiative="selected.initiative"
-					:color="selected.color"
+        <!-- <queue-item	 -->
+					<!-- v-show="selected && selected.ico" -->
+					<!-- :id="selected.id" -->
+					<!-- :name="selected.name" -->
+					<!-- :ico="selected.ico" -->
+					<!-- :initiative="selected.initiative" -->
+					<!-- :color="selected.color" -->
+				<!-- /> -->
+				<queue-item	
+					v-for="(item, index) in firsts"
+					:key="index"
+					:name="item.name"
+					:ico="item.ico"
+					:initiative="item.initiative"
+					:color="item.color"
+					
+					:class="{shown: true, hiding: index==0 && animate}"
 				/>
       </ul>
       
@@ -49,19 +59,38 @@
         </a>    
       </div>
       
-      <ul id='allOnes'>
+			<ul id='allOnes'>
 				<component
 					v-for="(item, index) in fullList"
 					:key="index"
 					v-bind:is="item.type"
 					v-bind="item.props"
 					
+					:class="{
+						hiding: index==1 && animate, 
+						last_appear: index==fullList.length-2 && animate
+					}"
+					
 					v-on:press="listClick(index, item.type)"
 					v-on:remove="listRemove(index, item.type)"
 					v-on:edit="listEdit(index, item.type)"
 				/>
-      </ul>
+			</ul>
 			
+			
+			<!-- <transition-group tag="ul" name="fade"> -->
+				<!-- <queue-item	 -->
+					<!-- v-for="(item, index) in data.list" -->
+					<!-- :key="index" -->
+					<!-- :name="item.name" -->
+					<!-- :ico="item.ico" -->
+					<!-- :initiative="item.initiative" -->
+					<!-- :color="item.color" -->
+				<!-- /> -->
+			<!-- </transition-group> -->
+			<!-- <pre> -->
+				<!-- {{data.list}} -->
+			<!-- </pre> -->
       <div id='subManageButtons' class='manageButtons'>
         <a href='#' id='sortItems' class='mButton'>
           Отсортировать

@@ -64,8 +64,34 @@
   margin: 0;
   padding: 0;
   position: relative;
+	max-height: 11rem;
+	overflow: hidden;
   // text-align: right;
 }
+.place.hiding{
+	max-height: 0;
+	transition: max-height .4s;	
+}
+
+.shown{
+	/*max-height: 11rem;
+	transition: max-height 0;*/
+}
+@keyframes growing { 
+	from { 
+		max-height: 0; 
+	} 
+	to { 
+		max-height: 11rem; 
+	}  
+}
+.last_appear{
+	animation-name: growing;
+	animation-duration: .4s;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+}
+
 .i_item{
   text-align: left;
   .card();
