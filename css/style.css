@@ -140,6 +140,7 @@ body {
   line-height: 1.42857143;
   color: #2c3e50;
   counter-reset: p_num 0;
+  overflow-y: scroll;
 }
 img {
   border: none;
@@ -378,21 +379,6 @@ table td:first-child {
   font-weight: 600;
   max-width: 90rem;
 }
-@media screen and (min-width: 65em) {
-  body {
-    background: url('../img/bg_hor.jpg') center center no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-  }
-  .page {
-    padding-top: 5px;
-  }
-  .p_cont {
-    padding-left: 16em;
-    width: 100%;
-    padding-top: 0;
-  }
-}
 .tabs {
   display: flex;
   flex-direction: column;
@@ -420,6 +406,54 @@ table td:first-child {
 .tabs .tab {
   min-height: 15rem;
 }
+.round_container {
+  color: #ddd;
+}
+.round_container .toolbar {
+  max-width: 35rem;
+  margin: .1rem auto;
+}
+.toolbar {
+  display: flex;
+  font-size: 130%;
+}
+.toolbar .title {
+  margin-left: .8em;
+  margin-right: .3em;
+}
+.toolbar button,
+.toolbar input,
+.toolbar span {
+  color: #777;
+  font-size: 130%;
+  background: none;
+  border-width: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.toolbar input {
+  text-align: center;
+  padding: .5rem;
+  max-width: 6em;
+}
+.toolbar input:active,
+.toolbar input:focus {
+  background: #ddd;
+  color: #222;
+}
+.toolbar input:active:hover,
+.toolbar input:focus:hover {
+  color: #222;
+}
+.toolbar button,
+.toolbar input {
+  cursor: pointer;
+}
+.toolbar button:hover,
+.toolbar input:hover {
+  color: #ddd;
+}
 #selectedOne {
   max-height: 110px;
   overflow: hidden;
@@ -435,7 +469,7 @@ table td:first-child {
   display: flex;
   border-radius: 0.5rem;
   overflow: hidden;
-  margin: 1.6rem 0.5rem;
+  margin: 1.6rem 0.5rem .9rem;
 }
 .manageButtons .mButton {
   padding: 0.9rem;
@@ -444,6 +478,7 @@ table td:first-child {
   text-decoration: none;
   font-weight: bold;
   display: block;
+  width: 100%;
 }
 .manageButtons .mButton:hover {
   background: #5e5e5e;
@@ -464,19 +499,16 @@ table td:first-child {
   max-height: 11rem;
   overflow: hidden;
 }
+.separator.hiding,
 .place.hiding {
   max-height: 0;
   transition: max-height 0.4s;
 }
-.shown {
-  /*max-height: 11rem;
-	transition: max-height 0;*/
-}
 @keyframes growing {
-  from {
+  0% {
     max-height: 0;
   }
-  to {
+  100% {
     max-height: 11rem;
   }
 }
@@ -498,7 +530,6 @@ table td:first-child {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  padding-bottom: 2rem;
 }
 .ico_bord {
   float: left;
@@ -509,15 +540,21 @@ table td:first-child {
 }
 .ico_bord .initiative {
   position: absolute;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   bottom: 0;
   right: 0;
   text-align: center;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  background: #222;
+  min-width: 4rem;
+  height: 4rem;
+  padding: .8rem;
+  font-size: 150%;
+  font-weight: bold;
+  border-radius: 2rem;
+  background: rgba(34, 34, 34, 0.8);
   color: #ddd;
+  cursor: default;
 }
 div[data-ico=ico_0] {
   background-repeat: no-repeat;
@@ -1439,19 +1476,38 @@ div[data-ico=ico_05_15] {
 }
 .separator {
   position: relative;
-  height: 2px;
+  height: 2rem;
   margin-left: 14rem;
   margin-right: 0.9rem;
   transition: background .3s;
   background: rgba(221, 221, 221, 0);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden;
+}
+.separator::before {
+  content: "";
+  height: 2px;
+  transition: background .3s;
+  flex-grow: 99;
+  background: linear-gradient(to left, #ddd, rgba(221, 221, 221, 0));
+  opacity: 0;
+  transition: opacity .2s;
+}
+.separator:hover::before {
+  opacity: 1;
+}
+.separator:hover .simbol {
+  background: #ddd;
 }
 .separator .simbol {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  right: 0rem;
-  top: -1rem;
+  /*position: absolute;
+    right: 0rem;
+    top: -1.0rem;*/
   height: 2rem;
   width: 2rem;
   font-weight: bold;
@@ -1459,14 +1515,11 @@ div[data-ico=ico_05_15] {
   color: #222;
   background: #777;
   border-radius: 3px;
-  cursor: pointer;
   z-index: 99;
+  transition: background .2s;
 }
 .separator .simbol:hover {
   background: #ddd;
-}
-.separator:hover {
-  background: linear-gradient(to left, #ddd, rgba(221, 221, 221, 0));
 }
 .row {
   display: flex;

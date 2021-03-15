@@ -32,6 +32,18 @@
   <div class='wrap' id='app'>
 
     <div class='pageColumn'>
+			<div class='round_container'>
+				<div class='toolbar'>
+					<button @click="round_back">
+					<
+					</button>
+					<span class='title'>Раунд: </span>
+					<input type='number' v-model="data.round" min='1'>
+					<button @click="round_forward">
+					>
+					</button>
+				</div>
+			</div>
       <ul id='selectedOne'>
         <!-- <queue-item	 -->
 					<!-- v-show="selected && selected.ico" -->
@@ -50,11 +62,14 @@
 					:color="item.color"
 					
 					:class="{shown: true, hiding: index==0 && animate}"
+					
+					v-on:remove="listRemove(1, 'queueItem')"
+					v-on:edit="listEdit(1, 'queueItem')"
 				/>
       </ul>
       
-      <div id='manageButtons' class='manageButtons'>
-        <a href='#' class='mButton' @click="next_char">
+      <div id='manageButtons' class='manageButtons' >
+        <a href='#' class='mButton' @click="next_char" v-show="data.list.length>1">
           Следующий
         </a>    
       </div>
@@ -67,8 +82,8 @@
 					v-bind="item.props"
 					
 					:class="{
-						hiding: index==1 && animate, 
-						last_appear: index==fullList.length-2 && animate
+						hiding: (index==1 || index==0)&& animate, 
+						last_appear: (index==fullList.length-2 || index==fullList.length-1)&& animate
 					}"
 					
 					v-on:press="listClick(index, item.type)"
@@ -92,8 +107,8 @@
 				<!-- {{data.list}} -->
 			<!-- </pre> -->
       <div id='subManageButtons' class='manageButtons'>
-        <a href='#' id='sortItems' class='mButton'>
-          Отсортировать
+        <a href='#' id='sortItems' class='mButton' @click="sortItems" v-show="data.list.length>1">
+          Отсортировать (по убыванию)
         </a>      
       </div>
     </div>

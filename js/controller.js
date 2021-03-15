@@ -202,7 +202,8 @@ var app = new Vue({
 	data: {
 		data: {
 			list: [],
-			history: []
+			history: [],
+			round: 1
 		},
 		
 		aColors: [
@@ -578,6 +579,8 @@ var app = new Vue({
 		},
 		removeItem: function(nIndex){		
 			let index = ~~(nIndex/2);
+			let oItem = this.data.list[index];
+			this.addHistory(oItem);
 			this.data.list.splice(index, 1);
 			this.setConfig('list', this.data.list);
 		},
@@ -613,11 +616,18 @@ var app = new Vue({
 				this.data.list.push(oItem);
 				setTimeout(function(){
 					this.data.list.shift();
-					this.animate = false;
-				}.bind(this), 400);
+					this.animate = false;					
+					this._switchRound();
+				}.bind(this), 500);
 			}
 		},
-		
+		_switchRound: function(){
+			if (this.data.list && 
+			this.data.list.length && 
+			this.data.list[0].initiative == Math.max(...this.data.list.map(el=>el.initiative))) {
+				this.round_forward();
+			}
+		},
 		apply: function(){
 			let oItem = {
 				name: this.editor.name,
@@ -627,7 +637,7 @@ var app = new Vue({
 			};
 			if(this.editor.mode == 'add') {
 				this.data.list.splice(this.editor.index, 0, oItem);
-				this.addHistory(oItem);
+				//this.addHistory(oItem);
 			} else {
 				this.data.list[this.editor.index].name = oItem.name;
 				this.data.list[this.editor.index].ico = oItem.ico;
@@ -661,6 +671,23 @@ var app = new Vue({
 			this.bModalWinShow = false;
 		},
 		
+		sortItems: function(){
+			this.data.list = this.data.list.sort((a,b)=>b.initiative - a.initiative);
+			this.setConfig('list', this.data.list);
+		},
+		
+		round_back: function(){
+			this.data.round--;
+			if(this.data.round<1) {
+				this.data.round = 1;
+			}
+			this.setConfig('round', this.data.round);
+		},
+		round_forward: function(){
+			this.data.round++;
+			this.setConfig('round', this.data.round);
+		},
+		
 		setConfig: function (prop, val) {
 			if(prop && val != undefined && this.oConfig) {
 				this.oConfig[prop] = val;
@@ -686,6 +713,11 @@ var app = new Vue({
 			if(aHistory && aHistory.length){
 				aHistory.forEach(el=>{el.initiative = Number(el.initiative);})
 				this.data.history = aHistory;					
+			}	
+			
+			let nRound = this.getConfig("round");
+			if(nRound){
+				this.data.round = nRound;					
 			}			
 		},
 			
