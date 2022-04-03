@@ -548,20 +548,20 @@ var app = new Vue({
 		listClick: function(nIndex, sType){
 			//debugger;
 			if(sType == 'adder') {
-				this.addItem(nIndex);
+				this.addItem(Math.floor(nIndex/2 +1));
 			}
 		},
 		
 		listRemove: function(nIndex, sType){
 			//debugger;
 			if(sType == 'queueItem') {
-				this.removeItem(nIndex);
+				this.removeItem(Math.floor((nIndex+1)/2));
 			}
 		},
 		listEdit: function(nIndex, sType){
 			//debugger;
 			if(sType == 'queueItem') {
-				this.editItem(nIndex);
+				this.editItem(Math.floor((nIndex+1)/2));
 			}
 		},
 		addItem: function(nIndex){
@@ -570,7 +570,7 @@ var app = new Vue({
 			this.editor.ico = "ico_0";
 			this.editor.color = "color_0";
 			this.editor.initiative = 0;
-			this.editor.index = ~~(nIndex/2);
+			this.editor.index = nIndex;//~~(nIndex/2);
 			this.editor.mode = 'add';
 			
 			this.tabs.selected = "editor";
@@ -578,7 +578,7 @@ var app = new Vue({
 			this.bModalWinShow = true;
 		},
 		removeItem: function(nIndex){		
-			let index = ~~(nIndex/2);
+			let index = nIndex;//~~(nIndex/2);
 			let oItem = this.data.list[index];
 			this.addHistory(oItem);
 			this.data.list.splice(index, 1);
@@ -586,7 +586,7 @@ var app = new Vue({
 		},
 		editItem: function(nIndex){
 			this.tabs.selected = "editor";
-			let index = ~~(nIndex/2);
+			let index = nIndex;//~~(nIndex/2);
 			
 			let oItem = this.data.list[index];
 			
